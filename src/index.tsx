@@ -21,6 +21,7 @@ import { CircleSVG } from "./ui/CircleSVG";
 import { LineSVG } from "./ui/LineSVG";
 import { DraggableSVG } from "./ui/DraggableSVG";
 import { DebugInformation } from "./ui/DebugInformation";
+import { HeadsUpMessage } from "./ui/HeadsUpMessage";
 import { debugStep } from "./lib/debugUtils";
 
 import "./App.css";
@@ -59,7 +60,8 @@ const App = () => {
     ArrowUp: () => setState(state => focusNearestUp(state)),
     ArrowDown: () => setState(state => focusNearestDown(state)),
     ArrowLeft: () => setState(state => focusNearestLeft(state)),
-    ArrowRight: () => setState(state => focusNearestRight(state))
+    ArrowRight: () => setState(state => focusNearestRight(state)),
+    Space: () => setState(state => addCircle(state, { x: 0, y: 0 }))
   });
 
   useEffect(() => {
@@ -127,6 +129,7 @@ const App = () => {
           />
         </>
       ) : null}
+      <HeadsUpMessage />
     </div>
   );
 };
