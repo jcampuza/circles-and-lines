@@ -11,6 +11,7 @@ body {
 *::before,
 *::after {
   box-sizing: border-box;
+  position: relative;
 }
 
 .App {
@@ -56,6 +57,7 @@ select {
 button {
   background-color: white;
   padding: 4px;
+  border-radius: 2px;
   border: 1px solid gray;
 }
 
@@ -89,4 +91,11 @@ button {
   .mobile-info {
     display: none;
   }
+}
+
+.close {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

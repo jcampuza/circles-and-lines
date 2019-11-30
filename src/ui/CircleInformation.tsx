@@ -6,14 +6,16 @@ import { Panel } from "./Panel";
 interface CircleInformationProps {
   state: State;
   onCircleFocused: (circle: Circle) => void;
+  onCircleRemoved: (circle: Circle) => void;
 }
 
 export const CircleInformation = (props: CircleInformationProps) => {
-  const handleClick = (circle: Circle) => (
-    e: React.MouseEvent<HTMLLIElement>
-  ) => {
+  const handleClick = (circle: Circle) => () => {
     props.onCircleFocused(circle);
-    e.stopPropagation();
+  };
+
+  const handleRemove = (circle: Circle) => () => {
+    props.onCircleRemoved(circle);
   };
 
   const circles = Object.values(props.state.circles);
@@ -39,6 +41,9 @@ export const CircleInformation = (props: CircleInformationProps) => {
                     : {}
                 }
               >
+                <button className="close" onClick={handleRemove(circle)}>
+                  X
+                </button>
                 <p>x: {trimValue(circle.x)}</p>
                 <p>y: {trimValue(circle.y)}</p>
                 <p>vx: {trimValue(circle.velocity.x)}</p>

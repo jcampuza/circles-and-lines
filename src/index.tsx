@@ -122,6 +122,9 @@ const App = () => {
           <DebugInformation state={state} />
           <CircleInformation
             state={state}
+            onCircleRemoved={circle =>
+              setState(state => removeCircle(state, circle.id))
+            }
             onCircleFocused={circle =>
               setState(state => setCircleFocus(state, circle))
             }

@@ -35,17 +35,19 @@ export const addCircle = (state: State, position: { x: number; y: number }) => {
  * Remove the circle matching the focus id
  * Remove all lines that pointed to or from this focus
  */
-export const removeCircle = (state: State, focusId: number | null) => {
-  if (!focusId) {
+export const removeCircle = (state: State, circleId: number | null) => {
+  if (!circleId) {
     return state;
   }
 
-  state.ui.focus = null;
+  if (circleId === state.ui.focus) {
+    state.ui.focus = null;
+  }
 
-  delete state.circles[focusId];
+  delete state.circles[circleId];
 
   for (const line of Object.values(state.lines)) {
-    if (line.from === focusId || line.to === focusId) {
+    if (line.from === circleId || line.to === circleId) {
       delete state.lines[line.id];
     }
   }
