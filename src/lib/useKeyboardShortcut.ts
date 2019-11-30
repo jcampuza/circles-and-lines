@@ -10,10 +10,10 @@ export const useKeyboardShortcuts = (keymap: KeyboardShortcupMap) => {
       }
     };
 
-    window.addEventListener("keypress", handler);
+    window.addEventListener("keydown", handler);
 
     return () => {
-      window.removeEventListener("keypress", handler);
+      window.removeEventListener("keydown", handler);
     };
   }, [keymap]);
 };
