@@ -23,6 +23,7 @@ export interface WindowDimensions {
 
 export interface DebugState {
   frameTimestampList: number[];
+  speed: number;
 }
 
 export interface UIState {
@@ -48,6 +49,7 @@ export const getInitialState = (): State => ({
   circles: {},
   lines: {},
   debug: {
-    frameTimestampList: []
+    frameTimestampList: [],
+    speed: 1
   }
 });

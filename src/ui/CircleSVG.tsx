@@ -15,5 +15,8 @@ export const CircleSVG = memo(({ x, y, isFocused }: CircleSVGProps) => (
     fill={isFocused ? "#21cac6" : "green"}
     stroke={isFocused ? "black" : "none"}
     strokeWidth={isFocused ? 2 : 0}
+    style={{
+      touchAction: "none"
+    }}
   />
 ));

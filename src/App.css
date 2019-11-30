@@ -3,8 +3,14 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 16;
+  font-size: 16px;
   background-color: #191919;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .App {
@@ -20,6 +26,7 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
+  padding: 4px 0;
 }
 
 p {
@@ -30,12 +37,56 @@ p {
   position: absolute;
   background-color: #ddd;
   opacity: 0.5;
-  width: 200px;
+  width: 160px;
   max-height: 200px;
   overflow: auto;
-  font-size: 12px;
+  padding: 8px;
 }
 
 .info-panel li:not(:last-child) {
   border-bottom: 1px solid #999;
+}
+
+select {
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+}
+
+button {
+  background-color: white;
+  padding: 4px;
+  border: 1px solid gray;
+}
+
+@media only screen and (min-width: 400px) {
+  .info-panel {
+    width: 180px;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .info-panel {
+    width: 250px;
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .info-panel {
+    width: 350px;
+  }
+}
+
+.desktop-info {
+  display: none;
+}
+
+@media only screen and (min-width: 780px) {
+  .desktop-info {
+    display: block;
+  }
+
+  .mobile-info {
+    display: none;
+  }
 }

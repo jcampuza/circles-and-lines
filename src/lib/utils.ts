@@ -154,3 +154,9 @@ export const focusNearestRight = (state: State) => {
 
   return state;
 };
+
+export const trimValue = (value: string | number) => {
+  if (typeof value === "number") {
+    return value.toFixed(2);
+  }
+};

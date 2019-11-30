@@ -1,5 +1,7 @@
 import { State } from "./getInitialState";
 
+const TIME_CONSTANT = 0.1;
+
 export const linearStep = (state: State, dt: number) => {
   const { width, height } = state.window;
   const { circles } = state;
@@ -25,8 +27,8 @@ export const linearStep = (state: State, dt: number) => {
       circle.y = height;
     }
 
-    circle.x += (circle.velocity.x * dt) / 4;
-    circle.y += (circle.velocity.y * dt) / 4;
+    circle.x += circle.velocity.x * dt * state.debug.speed * TIME_CONSTANT;
+    circle.y += circle.velocity.y * dt * state.debug.speed * TIME_CONSTANT;
   }
 
   return state;

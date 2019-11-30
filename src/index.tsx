@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useRef, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 import { useImmerState } from "./lib/useImmerState";
 import { getInitialState } from "./lib/getInitialState";
@@ -64,29 +64,28 @@ const App = () => {
     Space: () => setState(state => addCircle(state, { x: 0, y: 0 }))
   });
 
-  useEffect(() => {
-    if (paused) {
-      return;
-    }
-
-    let timer: number;
+  useLayoutEffect(() => {
     let start: number | null = null;
+    let frameId: number;
 
     const step = (time: number) => {
       if (!start) {
         start = time;
       }
-      setState(state => linearStep(state, time - start!));
-      setState(state => debugStep(state, time - start!));
 
-      timer = requestAnimationFrame(step);
+      if (!paused) {
+        setState(state => linearStep(state, time - start!));
+        setState(state => debugStep(state, time - start!));
+      }
+
       start = time;
+      frameId = requestAnimationFrame(step);
     };
 
-    timer = requestAnimationFrame(step);
+    frameId = requestAnimationFrame(step);
 
     return () => {
-      cancelAnimationFrame(timer);
+      cancelAnimationFrame(frameId);
     };
   }, [setState, paused]);
 
@@ -129,7 +128,46 @@ const App = () => {
           />
         </>
       ) : null}
-      <HeadsUpMessage />
+      <HeadsUpMessage
+        speed={state.debug.speed}
+        onSpeedChanged={value =>
+          setState(state => {
+            state.debug.speed = Number(value);
+          })
+        }
+        actions={[
+          {
+            label: "Add Circle",
+            action: () => setState(state => addCircle(state, { x: 0, y: 0 }))
+          },
+          { label: "Pause", action: () => setPaused(paused => !paused) },
+          { label: "Reset", action: () => setState(() => getInitialState()) },
+          {
+            label: "Remove Focused Circle",
+            action: () => setState(state => removeCircle(state, state.ui.focus))
+          },
+          {
+            label: "Show Debug Info",
+            action: () => setDebugEnabled(state => !state)
+          },
+          {
+            label: "Focus Up",
+            action: () => setState(state => focusNearestUp(state))
+          },
+          {
+            label: "Focus Down",
+            action: () => setState(state => focusNearestDown(state))
+          },
+          {
+            label: "Focus Left",
+            action: () => setState(state => focusNearestLeft(state))
+          },
+          {
+            label: "Focus Right",
+            action: () => setState(state => focusNearestRight(state))
+          }
+        ]}
+      />
     </div>
   );
 };
