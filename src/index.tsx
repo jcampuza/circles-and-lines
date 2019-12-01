@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useLayoutEffect } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 import { useImmerState } from "./lib/useImmerState";
 import { getInitialState } from "./lib/getInitialState";
